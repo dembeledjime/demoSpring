@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="fr" xmlns:th="http://www.thymeleaf.org">
+<head>
+	<meta charset="utf-8">
+	<th:block th:replace="_commun :: head"></th:block>
+	<style type="text/css">td{height: 50px; width: 50px} </style>
+</head>
+<body>
+	
+	<div th:replace="_commun :: header"></div>
+	
+	<main class="container-fluid">
+		<h2>Liste des Users	</h2>
+		<table class="table table-striped my-3">
+			<tr class="table-dark">
+				<th>Sexe</th>
+				<th>Photo</th>
+				<th>Prénom</th>
+				<th>Nom</th>
+				<th>Login</th>
+				<th>Statut</th>
+				<th>Âge</th>
+				<th>Nbre Article</th>
+				<th>Action</th>
+			</tr>
+			<tr th:each="personne : ${personnes}">
+				
+				<td th:text="${personne.sexe}"></td>
+				<td>
+					<img alt="" th:src="@{${personne.photoPath}}" style="width: 40%">
+				</td>
+				<td> 
+					<a th:href="@{'/user?id=' + ${personne.id}}" th:text="${personne.prenom}"></a> 
+				</td>
+				<td th:text="${personne.nom}"></td>
+				<td th:text="${personne.login}"></td>
+				<td th:text="${personne.statut}"></td>
+				<td th:text="${personne.age}"></td>
+				<td th:text="${#lists.size(personne.articles)}">[nombre article]</td>
+				<td>
+					<a th:href="@{'/delete?id='+${personne.id}}" class="text-danger">X</a>
+					&nbsp; | &nbsp;
+					<a th:href="@{'/update?id='+${personne.id}}" class="text-danger">U</a>
+				</td>
+			</tr>
+		</table>
+	
+	</main>
+	
+	<div th:replace="_commun :: footer"></div>
+	
+</body>
+</html>

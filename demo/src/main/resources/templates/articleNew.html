@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" lang="fr">
+<head>
+	<meta charset="utf-8">
+	<th:block th:replace="_commun :: head"></th:block>
+</head>
+<body>
+	
+	<div th:replace="_commun :: header"></div>
+	
+	<main class="container-fluid my-3">
+	
+		<h2>New Article</h2>
+		
+		<form th:action="@{/new/article}" method="post" th:object="${newArticle}">
+			<input type="hidden" th:field="*{id}">
+			<input type="hidden" th:field="*{user_id}">
+			
+			<div class="form-group">
+				<label>Titre : </label>
+				<input type="text" th:field="*{titre}" class="form-control">
+			</div>
+			
+			<div class="form-floating my-2">
+				<textarea class="form-control" 
+							placeholder="Leave a comment here"
+							id="floatingTextarea2" 
+							style="height: 100px"
+							th:field="*{contenu}"></textarea>
+				<label for="floatingTextarea2">contenu</label>
+			</div>
+			
+			<input type="submit">
+		</form>
+		
+	</main>
+	
+	<div th:replace="_commun :: footer"></div>
+	
+</body>
+</html>

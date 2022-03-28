@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" lang="fr">
+<head>
+	<meta charset="utf-8">
+	<th:block th:replace="_commun :: head"></th:block>
+</head>
+<body>
+	
+	<div th:replace="_commun :: header"></div>
+	
+	<main class="container-fluid my-3">
+	
+		<h2>New user</h2>
+																	     
+		<form th:action="@{/form}" method="post" th:object="${newMembre}" enctype="multipart/form-data">
+			<input type="hidden" th:field="*{id}">
+			<div class="form-group">
+				<label>Sexe : </label>
+				<input type="radio" value="F" th:field="*{sexe}"> <label>Femme</label>
+				<input type="radio" value="M" th:field="*{sexe}"> <label>Homme</label>
+			</div>
+			
+			<div class="form-group">
+				<label>Prénom : </label>
+				<input type="text" th:field="*{prenom}" class="form-control" placeholder="Prénom">
+				<p th:if="${#fields.hasErrors('prenom')}"
+					th:errors="*{prenom}"
+					class="alert alert-danger" />
+			</div>
+			
+			<div class="form-group">
+				<label>Nom : </label>
+				<input type="text"  th:field="*{nom}" class="form-control" placeholder="Nom">
+				<p th:if="${#fields.hasErrors('nom')}"
+					th:errors="*{nom}"
+					class="alert alert-danger" />
+			</div>
+			
+			<div class="form-group">
+				<label>Login : </label>
+				<input type="text"  th:field="*{login}" class="form-control" placeholder="Login">
+				<p th:if="${#fields.hasErrors('login')}"
+					th:errors="*{login}"
+					class="alert alert-danger" />
+			</div>
+			
+			<div class="form-group">
+				<label>Password : </label>
+				<input type="password"  th:field="*{mdp}" class="form-control" placeholder="Password">
+			</div>
+			
+			<div class="form-group">
+				<label>Âge : </label>
+				<input type="text" th:field="*{age}" class="form-control" placeholder="Âge">
+			</div>
+			
+			<div class="form-group">
+				<label>photo : </label>
+				<input type="file" accept="image/*" name="logo" id="logo" class="form-control">
+			</div>
+			
+			<div>
+				<img alt="" src="" id="imgLoaded" class="my-3" style="width: 15%">
+			</div>
+			
+			<input type="submit" class="mt-2">
+		</form>
+		
+	</main>
+	
+	<div th:replace="_commun :: footer"></div>
+	
+	<script type="text/javascript">
+		document.getElementById("logo").addEventListener("change", (e) => {
+
+			if( e.target.files.length > 0 ){
+				var src = URL.createObjectURL(e.target.files[0]);
+				document.getElementById("imgLoaded").src = src;
+			}
+		});
+		
+	</script>
+	
+</body>
+</html>

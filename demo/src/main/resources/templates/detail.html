@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+	<meta charset="utf-8">
+	<th:block th:replace="_commun :: head"></th:block>
+</head>
+<body>
+	
+	<div th:replace="_commun :: header"></div>
+	
+	<main class="container-fluid">
+		<h3 th:text="${user.prenom}"></h3>
+		
+		<ul class="list-group">
+			<li class="list-group-item" th:each="article:${user.articles}">
+				<a th:href="@{'/article?idArt='+${article.id}}" 
+					th:text="${article.titre}">titre article</a>
+			</li>
+		</ul>
+	
+	</main>
+	
+	<div th:replace="_commun :: footer"></div>
+	
+</body>
+</html>

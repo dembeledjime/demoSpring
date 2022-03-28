@@ -1,0 +1,35 @@
+
+	<th:block th:fragment="head">
+		<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
+		<title>Home</title>
+		<style type="text/css"> a{text-decoration: none;} </style>
+	</th:block>
+	
+	<header class="text-center bg-secondary p-3 mb-3" th:fragment="header">
+		<h1> 
+			<a th:href="@{/}">
+				<img alt="logo" th:src="@{/img/logo.jfif}" style="width: 5%">
+			</a>
+		</h1>
+		<nav> 			
+			<th:block th:if="${session.user}">
+				<th:block th:if="${session.user.statut == 'admin'}">
+					<a th:href="@{/article/new}" class="btn btn-success">New Article</a>
+					<a th:href="@{/users/liste}" class="btn btn-success">Users</a>
+					
+				<a th:href="@{/add}" class="btn btn-success">Inscription</a>
+				</th:block>
+				<a th:href="@{/user/logout}" class="btn btn-danger">Deconnexion</a>
+				<div th:text="${session.user.prenom} +' ['+${session.user.statut}+']'" 
+					class="text-end fw-bold"></div>
+			</th:block>
+			<th:block th:unless="${session.user}">
+				<a th:href="@{/add}" class="btn btn-success">Inscription</a>
+				<a th:href="@{/form/connect}" class="btn btn-success">Connexion</a>
+			</th:block>
+		 </nav>
+	</header>
+	
+	<footer class="bg-secondary text-center text-white mt-5" th:fragment="footer">
+		&copy; - 2022 - ILCI
+	</footer>

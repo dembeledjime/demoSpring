@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="fr" xmlns:th="http://www.thymeleaf.org">
+<head>
+	<meta charset="utf-8">
+	<th:block th:replace="_commun :: head"></th:block>
+</head>
+<body>
+	
+	<div th:replace="_commun :: header"></div>
+	
+	<main class="container-fluid">
+		<h2>Liste des Articles	</h2>
+		<table class="table table-striped my-3">
+			<tr class="table-dark">
+				<th>Id</th>
+				<th>Titre</th>
+				<th>contenu</th>
+				<th>Date création</th>
+				<th>user</th>
+				<th:block th:if="${session.user} and ${session.user.statut == 'admin'}">
+					<th>Action</th>
+				</th:block>
+			</tr>
+			<tr th:each="article : ${articles}">
+				
+				<td th:text="${article.id}"></td>
+				<td> 
+					<a th:href="@{'/article?idArt=' + ${article.id}}" th:text="${article.titre}"></a> 
+				</td>
+				<td th:text="${#strings.substring(article.contenu, 0, 10)}+' ...'"></td>
+				<td th:text="${article.date_article}"></td>
+				<td th:text="${article.user_id.prenom}"></td>
+				<td th:if="${session.user} and ${session.user.statut == 'admin'}">
+					<a th:href="@{'/delete?id='+${article.id}}" class="text-danger">X</a>
+					&nbsp; | &nbsp;
+					<a th:href="@{'/update?id='+${article.id}}" class="text-danger">U</a>
+				</td>
+			</tr>
+		</table>
+	
+	</main>
+	
+	<div th:replace="_commun :: footer"></div>
+	
+</body>
+</html>

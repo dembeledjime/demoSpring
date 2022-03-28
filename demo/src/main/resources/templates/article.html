@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+	<meta charset="utf-8">
+	<th:block th:replace="_commun :: head"></th:block>
+</head>
+<body>
+	
+	<div th:replace="_commun :: header"></div>
+	
+	<main class="container-fluid">
+		<h3 th:text="${article.titre}"></h3>
+		<div class="my-3" th:text="${article.contenu}"></div>
+		<div class="fw-bold">
+			Auteur : <th:block th:text="${article.user_id.prenom}">
+		</div>
+		<div class="" th:text=" 'Le ' + ${article.date_article}"></div>
+		
+		<!-- liste de comm -->
+		<hr> 
+		<ul class="list-group">
+			<li class="list-group-item" th:each="comment:${article.comments}">
+				<h4 th:text="'Rédigé par ' + ${comment.pseudo}"></h4>
+				<p th:text="${comment.content}"></p>
+				<p th:text="'Le ' + ${comment.date_comment}"></p>
+			</li>
+		</ul>
+
+	<!-- Form add comm -->
+		<form class="mt-3" method="post" 
+				th:action="@{/article/comment}"
+				th:object="${comment}">
+				
+			<input type="hidden" th:field="*{article}">
+				
+			<div class="input-group mb-3">
+				<span class="input-group-text" id="basic-addon1">Pseudo</span> 
+				<input type="text" class="form-control" 
+						aria-label="Pseudo"
+					   aria-describedby="basic-addon1"
+					   th:field="*{pseudo}">
+			</div>
+			<div class="form-floating">
+				<textarea class="form-control" 
+							placeholder="Leave a comment here"
+							id="floatingTextarea2" 
+							style="height: 100px"
+							th:field="*{content}"></textarea>
+				<label for="floatingTextarea2">Comments</label>
+			</div>
+			<div class="input-group">
+				<button class="btn btn-outline-secondary mt-3" type="submit"
+					id="inputGroupFileAddon04">Enregistrer</button>
+			</div>
+		</form>
+		
+	
+	</main>
+	
+	<div th:replace="_commun :: footer"></div>
+	
+</body>
+</html>
